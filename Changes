@@ -1,5 +1,9 @@
 Revision history for Perl extension Maypole::Authentication::UserSessionCookie.
 
+1.5   Mon Jan 04 23:20:13 CET 2005
+    - session should be an accessor
+    - Added use statements to pass test.
+      
 1.4   Tue Dec 15 00:27:01 CET 2004
     - Updated to work with Apache2 & Maypole2
     - Changed Module name to work with Maypole's Plugin namespace.

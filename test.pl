@@ -6,6 +6,8 @@
 # change 'tests => 1' to 'tests => last_test_to_print';
 
 use Test;
+use Maypole;
+use Maypole::Config;
 BEGIN { plan tests => 1 };
 use Maypole::Plugin::Authentication::UserSessionCookie;
 ok(1); # If we made it this far, we're ok.

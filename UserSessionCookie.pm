@@ -1,10 +1,10 @@
-package Maypole::Plugin::Authentication::UserSessionCookie;
+    package Maypole::Plugin::Authentication::UserSessionCookie;
 use strict;
 use warnings;
-our $VERSION = '1.4';
+our $VERSION = '1.5';
 use CGI::Simple::Cookie;
 Maypole::Config->mk_accessors('auth');
-Maypole->mk_accessors('user');
+Maypole->mk_accessors(qw/user session/);
 
 =head1 NAME
 
@@ -69,7 +69,7 @@ sub get_user {
     } 
     warn "Giving cookie" if $r->debug;
     $r->login_user($uid, $sid) or return 0;
-    $r->user ||= $r->uid_to_user($r->session->{uid});
+    $r->user || $r->user($r->uid_to_user($r->session->{uid}));
     warn "User is : ".$r->user if $r->debug;
 }
 
