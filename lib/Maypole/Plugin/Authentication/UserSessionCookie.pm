@@ -1,7 +1,7 @@
     package Maypole::Plugin::Authentication::UserSessionCookie;
 use strict;
 use warnings;
-our $VERSION = '1.5';
+our $VERSION = '1.6';
 use CGI::Simple::Cookie;
 Maypole::Config->mk_accessors('auth');
 Maypole->mk_accessors(qw/user session/);

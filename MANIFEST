@@ -1,7 +1,9 @@
+Build.PL
 Changes
-Makefile.PL
-MANIFEST
+lib/Maypole/Plugin/Authentication/UserSessionCookie.pm
+MANIFEST			This list of files
+META.yml
 README
-test.pl
-UserSessionCookie.pm
-META.yml                                 Module meta-data (added by MakeMaker)
+t/01-basics.t
+t/02pod.t
+t/03podcoverage.t

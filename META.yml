@@ -1,11 +1,10 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Maypole-Plugin-Authentication-UserSessionCookie
-version:      1.5
-version_from: UserSessionCookie.pm
-installdirs:  site
-requires:
-    Maypole:                       2.05
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.17
+--- #YAML:1.0
+name: Maypole-Plugin-Authentication-UserSessionCookie
+version: 1.6
+author:
+  - Simon Cozens, C<simon@cpan.org>
+Maintained by Marcus Ramberg, C<marcus@thefeed.no>
+abstract: Track sessions and,
+optionally, users
+license: perl
+generated_by: Module::Build version 0.2605, without YAML.pm
