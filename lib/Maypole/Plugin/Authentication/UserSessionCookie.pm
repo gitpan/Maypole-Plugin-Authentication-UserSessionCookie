@@ -1,7 +1,7 @@
     package Maypole::Plugin::Authentication::UserSessionCookie;
 use strict;
 use warnings;
-our $VERSION = '1.6';
+our $VERSION = '1.7';
 use CGI::Simple::Cookie;
 Maypole::Config->mk_accessors('auth');
 Maypole->mk_accessors(qw/user session/);
@@ -182,19 +182,23 @@ cookie which expires the old cookie.
 sub logout {
     my $r = shift;
     $r->user(undef);
-    my $s=tied(%{$r->session});
-    $s->delete if ref $s;
+    if ($r->session) {
+	my $s=tied(%{$r->session});
+	$s->delete if ref $s;
+    }
     $r->_logout_cookie;
 }
 
 sub _logout_cookie {
     my $r = shift;
+    my $cookie_name = $r->config->auth->{cookie_name} || "sessionid";
     my $cookie = CGI::Simple::Cookie->new(
-        -name => $r->config->auth->{cookie_name} || "sessionid",
-        -value => undef,
-        -path => URI->new($r->config->uri_base)->path,
-        -expires => "-10m"
+        -name => $cookie_name,
+        -value => '',
+        -expires => '-10m',
+        -path => URI->new($r->config->uri_base)->path
     );
+    warn "Baking: ". $cookie->as_string if $r->debug;
     $cookie && $r->headers_out->set("Set-Cookie",$cookie->as_string());
 }
 

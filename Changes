@@ -1,5 +1,9 @@
 Revision history for Perl extension Maypole::Authentication::UserSessionCookie.
 
+1.7   Mon Jan 05 14:20:00 CET 2005
+    - logout could not create a cookie with undef as value
+      with CGI::Simple::Cookie
+
 1.6   Mon Jan 04 23:40:45 CET 2005
     - Moved tests to t/ and added Pod tests.
     - Changed to Module::Build
