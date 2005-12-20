@@ -1,8 +1,9 @@
     package Maypole::Plugin::Authentication::UserSessionCookie;
 use strict;
 use warnings;
-our $VERSION = '1.7';
+our $VERSION = '1.8';
 use CGI::Simple::Cookie;
+use URI;
 Maypole::Config->mk_accessors('auth');
 Maypole->mk_accessors(qw/user session/);
 
@@ -21,7 +22,7 @@ optionally, users
         return OK if $r->user;
         return OK if $r->table eq "user" and $r->action eq "subscribe";
         # Force them to the login page.
-        $r->template = "login";
+        $r->template("login");
         return OK;
     }
 
@@ -105,11 +106,15 @@ sub login_user {
     $session{uid} = $uid if $uid and not exists $session{uid};
     warn "Session's uid is $session{uid}" if $r->debug;
     my $cookie_name = $r->config->auth->{cookie_name} || "sessionid";
+    
+    my %expires = ( -expires => $r->config->auth->{cookie_expiry} )
+        if exists $r->config->auth->{cookie_expiry};
+
     my $cookie = CGI::Simple::Cookie->new(
         -name => $cookie_name,
         -value => $session{_session_id},
-        -expires => $r->config->auth->{cookie_expiry} || '+3M',
-        -path => URI->new($r->config->uri_base)->path
+        -path => URI->new($r->config->uri_base)->path,
+        %expires,
     );
     warn "Baking: ". $cookie->as_string if $r->debug;
     $r->headers_out->set("Set-Cookie",$cookie->as_string());
@@ -167,7 +172,7 @@ user class. Again, see L</Configuration>.
 sub uid_to_user {
     my $r = shift;
     my $user_class = $r->config->auth->{user_class} || ((ref $r)."::User");
-    $user_class->require || die "Couldn't load user class $user_class";
+#    $user_class->require || die "Couldn't load user class $user_class";
     my $user= $user_class->retrieve(shift);
     return $user;
 }

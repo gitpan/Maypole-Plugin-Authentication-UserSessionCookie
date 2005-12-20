@@ -1,5 +1,11 @@
 Revision history for Perl extension Maypole::Authentication::UserSessionCookie.
 
+1.8   Mon Dec 05 23:50 2005
+    - use URI (rt #11709)
+    - don't try to load $user_class (rt #11915)
+    - default logout behaviour matches docs (rt #14491)
+    - fixed doc typo (rt #15665)
+
 1.7   Mon Jan 05 14:20:00 CET 2005
     - logout could not create a cookie with undef as value
       with CGI::Simple::Cookie
